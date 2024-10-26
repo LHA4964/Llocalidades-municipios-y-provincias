@@ -1,27 +1,41 @@
 package dominio;
-import java.util.*;
+import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Municipio{
-	private ArrayList<Localidad> localidadMunicipio = new ArrayList<>();
+public class Municipio implements Serializable{
+	private String nombre;
+	private ArrayList<Localidad> localidades;
 
-	public void annadir(Localidad localidad){
-		String nombre = localidad.getNombre();
-		int habitantes = localidad.getNumeroDeHabitantes();
-		Localidad loc = new Localidad(nombre, habitantes);
-		localidadMunicipio.add(loc);
+	public Municipio(String nombre){
+		this.nombre = nombre;
+		localidades = new ArrayList<Localidad>();
 	}
-	public int getTotalHabitantes(){ 	
-		int totalHabitantes=0;
-		for (Localidad localidad: localidadMunicipio){
-			totalHabitantes += localidad.getNumeroDeHabitantes();
+	public Municipio add(Localidad localidad){
+		localidades.add(localidad);
+		return this;
+	}
+	public int getPoblacion(){
+		int poblacion=0;
+		for(Localidad localidad:localidades){
+			poblacion+=localidad.getPoblacion();
 		}
-		return totalHabitantes;
+		return poblacion;
+	}
+	public int getLocalidades(){
+		return localidades.size();
+	}
+	public Localidad getLocalidad(int i){
+		return localidades.get(i);
 	}
 	public String toString(){
-		String lista = "";
-		for (Localidad localidad : localidadMunicipio) {
-            		lista = (localidad.toString()+"\n");
-        	}
-		return lista;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Municipio: ").append(nombre).append("Poblacion: ").append(getPoblacion());
+		for (Localidad localidad : localidades) {
+			sb.append(localidad.toString());
+		}
+		return sb.toString();
+	}
+	public String getNombre() {
+		return nombre;
 	}
 }

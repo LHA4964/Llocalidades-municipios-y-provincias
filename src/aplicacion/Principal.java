@@ -1,12 +1,14 @@
 package aplicacion;
-import dominio.Localidad;
-
+import dominio.*;
+import presentacion.Interfaz;
+import java.util.ArrayList;
 public class Principal {
-	public static void main(String[] args) {
-        // Crear un objeto de la clase Localidad
-        Localidad localidad = new Localidad("Madrid", 3000000);
-
-        // Mostrar el objeto Localidad por pantalla
-        System.out.println(localidad.toString());
-	}
+    public static void main(String[] args) {
+        Interfaz interfaz = new Interfaz();
+        String[] peticion;
+        interfaz.ayuda();// para que muestre la ayuda al principio
+        do {
+            peticion = interfaz.leerPeticion();
+        } while (interfaz.procesarPeticion(peticion));
+    }
 }
